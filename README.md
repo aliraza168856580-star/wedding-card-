@@ -1,1 +1,224 @@
 # wedding-card-
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Royal Wedding Invitation</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;padding:20px 12px;
+ background:radial-gradient(circle,#641018,#160509);
+ color:#fce7a2;
+ font-family:Georgia,serif;text-align:center;
+}
+.card{
+ max-width:480px;margin:auto;padding:24px 16px;
+ border:3px double #e9bd55;
+ border-radius:15px;
+ background:linear-gradient(145deg,#480b13,#21070c,#570d16);
+ box-shadow:0 0 30px #d7a43d66;
+}
+.gold{color:#f5d27b}
+.top{font-size:13px;letter-spacing:3px}
+h1{font-size:34px;margin:15px 0;color:#f4d27b}
+h2{color:#f5d27b;font-size:23px}
+.names{font-size:25px;line-height:1.7}
+.heart{font-size:28px;color:#e9bd55}
+.line{height:1px;background:#d9ae55;margin:20px 0}
+.open{
+ background:linear-gradient(135deg,#f6d780,#b47a22);
+ color:#480b13;border:0;padding:15px 30px;
+ border-radius:30px;font-weight:bold;font-size:16px;
+ cursor:pointer;box-shadow:0 0 15px #e8bd5b66;
+}
+#inside{display:none}
+.special{
+ border:1px solid #d9ae55;padding:14px;
+ margin-top:18px;border-radius:10px;
+ background:#ffffff09;line-height:1.8;
+}
+.vip{font-size:13px;letter-spacing:3px;color:#f6d780}
+.events{display:grid;gap:18px;margin-top:20px}
+.event{
+ border:1px solid #c99b48;border-radius:12px;
+ padding:15px;background:#ffffff08;
+}
+.scratch{
+ position:relative;height:115px;
+ max-width:330px;margin:12px auto;
+ border-radius:9px;overflow:hidden;
+ background:#fff0c2;color:#72101a;
+}
+.scratch canvas{
+ position:absolute;inset:0;width:100%;height:100%;
+ touch-action:none;cursor:crosshair;
+}
+.reveal{
+ height:100%;display:flex;align-items:center;
+ justify-content:center;flex-direction:column;
+ font-size:22px;font-weight:bold;
+}
+.reveal small{font-size:13px}
+.hint{font-size:12px;color:#f4d27b}
+.footer{font-size:13px;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="card">
+
+<div class="top">A ROYAL CELEBRATION</div>
+<div class="heart">✦ ❧ ♥ ❧ ✦</div>
+
+<h1>Wedding Invitation</h1>
+
+<div id="cover">
+<p class="gold">Together with their families</p>
+<div class="names">
+Zaria Aslam<br>
+<span class="heart">&</span><br>
+Zayan Saghir
+</div>
+<div class="line"></div>
+<p>YOU ARE CORDIALLY INVITED</p>
+<button class="open" onclick="openCard()">✦ TAP TO OPEN ✦</button>
+<p class="hint">A special invitation awaits you</p>
+</div>
+
+<div id="inside">
+
+<div class="line"></div>
+<p class="vip">WITH LOVE & BLESSINGS</p>
+<h2>Zaria Aslam</h2>
+<div class="heart">♥</div>
+<h2>Zayan Saghir</h2>
+<p>Request the pleasure of your presence<br>at their wedding celebrations</p>
+
+<div class="line"></div>
+<h2>✦ Scratch to Reveal ✦</h2>
+<p class="hint">Scratch each golden cover with your finger</p>
+
+<div class="events">
+<div class="event">
+<h2>🌸 MEHNDI</h2>
+<div class="scratch">
+<div class="reveal">
+<small>MEHNDI DATE</small>
+25 DECEMBER 2026
+</div>
+<canvas id="mehndi"></canvas>
+</div>
+<p class="hint">Scratch to reveal Mehndi date</p>
+</div>
+
+<div class="event">
+<h2>👑 BARAT</h2>
+<div class="scratch">
+<div class="reveal">
+<small>BARAT DATE</small>
+26 DECEMBER 2026
+</div>
+<canvas id="barat"></canvas>
+</div>
+<p class="hint">Scratch to reveal Barat date</p>
+<p class="gold">Venue: Royal Celebration</p>
+<p>Shahdara, Near Rainbow Mall</p>
+</div>
+</div>
+
+<div class="line"></div>
+
+<div class="special">
+<div class="vip">✦ SPECIAL VIP INVITATION ✦</div>
+<h2>Mr. & Mrs.<br>Muhammad Uzair Qayyum</h2>
+<h2>Aman & Abeeha</h2>
+<p>With special love and respect</p>
+</div>
+
+<div class="line"></div>
+<div class="footer">
+<p class="gold">WITH BEST WISHES</p>
+<p>Ali Haider <span class="heart">♥</span> Ali Raza</p>
+<p>Warm regards from the family</p>
+<div class="heart">❧ ✦ ❧</div>
+</div>
+</div>
+</div>
+
+<script>
+function openCard(){
+ document.getElementById('cover').style.display='none';
+ document.getElementById('inside').style.display='block';
+ setTimeout(()=>{
+  setupScratch('mehndi');
+  setupScratch('barat');
+ },100);
+}
+
+function setupScratch(id){
+ const canvas=document.getElementById(id);
+ const box=canvas.parentElement;
+ const rect=box.getBoundingClientRect();
+ const ratio=window.devicePixelRatio||1;
+ canvas.width=rect.width*ratio;
+ canvas.height=rect.height*ratio;
+ const ctx=canvas.getContext('2d');
+ ctx.scale(ratio,ratio);
+
+ const w=rect.width,h=rect.height;
+
+ const grad=ctx.createLinearGradient(0,0,w,h);
+ grad.addColorStop(0,'#fff0b0');
+ grad.addColorStop(.3,'#c58d32');
+ grad.addColorStop(.55,'#f9df8d');
+ grad.addColorStop(1,'#9b681d');
+ ctx.fillStyle=grad;
+ ctx.fillRect(0,0,w,h);
+
+ ctx.fillStyle='#54200c';
+ ctx.font='bold 17px Georgia';
+ ctx.textAlign='center';
+ ctx.fillText('✦ SCRATCH HERE ✦',w/2,h/2+6);
+
+ ctx.strokeStyle='rgba(255,255,255,.5)';
+ ctx.lineWidth=2;
+ for(let i=0;i<30;i++){
+  let x=Math.random()*w,y=Math.random()*h;
+  ctx.fillStyle='rgba(255,255,255,.3)';
+  ctx.fillRect(x,y,2,2);
+ }
+
+ let drawing=false;
+ let scratched=0;
+
+ function erase(e){
+  if(!drawing)return;
+  const r=canvas.getBoundingClientRect();
+  const x=e.clientX-r.left;
+  const y=e.clientY-r.top;
+  ctx.globalCompositeOperation='destination-out';
+  ctx.beginPath();
+  ctx.arc(x,y,19,0,Math.PI*2);
+  ctx.fill();
+  scratched++;
+  if(scratched>40){
+   canvas.style.opacity='0';
+   canvas.style.pointerEvents='none';
+  }
+ }
+
+ canvas.addEventListener('pointerdown',e=>{
+  drawing=true;
+  canvas.setPointerCapture(e.pointerId);
+  erase(e);
+ });
+ canvas.addEventListener('pointermove',erase);
+ canvas.addEventListener('pointerup',()=>drawing=false);
+ canvas.addEventListener('pointercancel',()=>drawing=false);
+}
+
+</script>
+</body>
+</html>
